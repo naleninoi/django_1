@@ -16,3 +16,7 @@ venv.bak/
 # PyCharm stuff
 .idea
 .idea/
+.idea/geekshop.iml
+.idea/geekshop.iml
+.idea/misc.xml
+.idea/modules.xml

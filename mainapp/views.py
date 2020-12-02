@@ -30,7 +30,7 @@ def products(request, pk=None):
 def contact(request):
     title = 'Контакты'
     visit_date = datetime.datetime.now()
-    file_path = os.path.join(settings.BASE_DIR, 'json/contacts.json')
+    file_path = os.path.join(settings.BASE_DIR, 'mainapp/json/contacts.json')
     with open(file_path, encoding='utf-8') as file_contacts:
         locations = json.load(file_contacts)
     content = {'title': title, 'visit_date': visit_date, 'locations': locations}

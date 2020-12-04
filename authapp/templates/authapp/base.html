@@ -8,7 +8,8 @@
     </title>
     {% block css %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	    <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
     {% endblock %}
     {% block js %}
 
@@ -17,8 +18,6 @@
 <body>
 	<div class="container">
         <div class="login">
-            <a href="{% url "main" %}">На главную</a>
-            <br>
             {% block content %}
 
             {% endblock %}

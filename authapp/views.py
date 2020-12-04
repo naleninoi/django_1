@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from authapp.forms import ShopUserLoginForm
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
 
 
 def login(request):
@@ -15,10 +15,35 @@ def login(request):
         if user and user.is_active:
             auth.login(request, user)
         return HttpResponseRedirect(reverse('main'))
-    content = {
-        'login_form': login_form
-    }
+    content = {'login_form': login_form}
     return render(request, 'authapp/login.html', content)
 
+
 def logout(request):
-    pass
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('main'))
+
+
+def register(request):
+    if request.method == 'POST':
+        register_form = ShopUserRegisterForm(request.POST, request.FILES)
+        if register_form.is_valid():
+            register_form.save()
+            return HttpResponseRedirect(reverse('authapp:login'))
+    else:
+        register_form = ShopUserRegisterForm()
+
+    content = {'register_form': register_form}
+    return render(request, 'authapp/register.html', content)
+
+
+def edit(request):
+    if request.method == 'POST':
+        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
+        if edit_form.is_valid():
+            edit_form.save()
+            return HttpResponseRedirect(reverse('authapp:edit'))
+    else:
+        edit_form = ShopUserEditForm(instance=request.user)
+    content = {'edit_form': edit_form}
+    return render(request, 'authapp/edit.html', content)

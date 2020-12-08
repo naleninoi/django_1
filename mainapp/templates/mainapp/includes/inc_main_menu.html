@@ -5,7 +5,7 @@
         </a>
     </li>
     <li>
-        <a href="{% url 'mainapp:index' %}"{% if request.resolver_match.namespace == 'products' %}class="active"{% endif %}>
+        <a href="{% url 'products:index' %}"{% if request.resolver_match.namespace == 'category' %}class="active"{% endif %}>
         продукты
         </a>
     </li>
@@ -20,15 +20,15 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'auth:logout' %}">выход</a>
+            <a href="{% url 'auth:logout' %}">выйти</a>
         </li>
     {% else %}
-        <li><a href="{% url 'auth:login' %}">вход</a></li>
+        <li><a href="{% url 'auth:login' %}">войти</a></li>
     {% endif %}
 </ul>
 <a href="#" class="search"></a>
 <a href="{% url 'basket:view' %} " class="basket">
 <span>
-    {% if basket %}{{ basket|length }}{% endif %}
+    {% if basket %}{{ basket.0.total_cost|floatformat:0 }} руб. ({{ basket.0.total_quantity }} шт.){% endif %}
 </span>
 </a>

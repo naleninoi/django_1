@@ -11,6 +11,22 @@ class Basket(models.Model):
     add_datetime = models.DateTimeField(auto_now_add=True, verbose_name='время')
 
     class Meta:
-        verbose_name_plural = 'Товары'
-        verbose_name = 'Товар'
+        verbose_name_plural = 'Наборы товаров'
+        verbose_name = 'Набор товаров'
         ordering = ['-add_datetime']
+
+    @property
+    def product_cost(self):
+        return self.product.price * self.quantity
+
+    @property
+    def total_quantity(self):
+        _items = Basket.objects.filter(user=self.user)
+        _total_quantity = sum(list(map(lambda x: x.quantity, _items)))
+        return _total_quantity
+
+    @property
+    def total_cost(self):
+        _items = Basket.objects.filter(user=self.user)
+        _total_cost = sum(list(map(lambda x: x.product_cost, _items)))
+        return _total_cost

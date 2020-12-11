@@ -44,9 +44,24 @@ def basket_remove(request, pk):
 
 
 @login_required
+def basket_remove_ajax(request, pk):
+    if request.is_ajax():
+        basket_for_delete = Basket.objects.get(pk=pk)
+        basket_for_delete.delete()
+
+        basket_items = Basket.objects.filter(user=request.user).order_by('product__category')
+
+        content = {
+            'basket_items': basket_items
+        }
+        result = render_to_string('basketapp/includes/inc_basket_list.html', content)
+        return JsonResponse({'result': result})
+
+
+@login_required
 def basket_edit(request, pk, quantity):
     if request.is_ajax():
-        quantity=int(quantity)
+        quantity = int(quantity)
         new_basket_item = Basket.objects.get(pk=pk)
 
         if quantity > 0:
@@ -62,4 +77,4 @@ def basket_edit(request, pk, quantity):
         }
 
         result = render_to_string('basketapp/includes/inc_basket_list.html', content)
-        return JsonResponse({'result':result})
+        return JsonResponse({'result': result})

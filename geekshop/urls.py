@@ -26,8 +26,9 @@ urlpatterns = [
     path('contact/', mainapp.contact, name='contact'),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('basket/', include('basketapp.urls', namespace='basket')),
-    path('admin/', admin.site.urls),
+    path('admin/', include('adminapp.urls', namespace='admin')),
 ]
+    # path('admin/', admin.site.urls),
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

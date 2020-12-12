@@ -11,9 +11,7 @@
 
     {% for object in objects %}
       <div class="product_record">
-        <img
-          src="/media/{{object.image|default:'products_images/default.jpg'}}"
-          alt="{{ object.name }}">
+        <img src="/media/{{object.image|default:'products_images/default.jpg'}}" alt="{{ object.name }}">
         <div class="product_name">
           {{ object.name|title }}
         </div>
@@ -41,7 +39,7 @@
           <p>{{ object.quantity }}</p>
         </div>
         <div class="product_desc">
-          {{ object.short_desc|title }}
+          {{ object.short_desc|capfirst }}
         </div>
       </div>
     {% endfor%}
